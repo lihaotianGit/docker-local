@@ -1,0 +1,14 @@
+version: '2'
+services:
+  db:
+    image: "mysql"
+    environment:
+      - MYSQL_ROOT_PASSWORD=mysql
+      - MYSQL_USER=mysql
+      - MYSQL_PASSWORD=mysql
+    ports:
+      - "127.0.0.1:3307:3306"
+  redis:
+    image: "redis"
+    ports:
+      - "127.0.0.1:6379:6379"
