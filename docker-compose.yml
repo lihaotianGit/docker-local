@@ -1,12 +1,13 @@
 version: '2'
 services:
   redis_master:
-    image: redis:3.0.7-alpine
+    build: ./redis/redis-master/.
+    image: redis-master
     ports:
       - "127.0.0.1:6379:6379"
 
   sentinel:
-    build: ./redis/.
+    build: ./redis/redis-sentinel/.
     image: redis-sentinel
     environment:
       - MASTER_NAME=master01
@@ -18,7 +19,7 @@ services:
       - redis_master
     ports:
       - "127.0.0.1:26379:26379"
-      
+
   db:
     build: ./mysql/.
     image: mysql
