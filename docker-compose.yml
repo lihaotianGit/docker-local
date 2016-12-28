@@ -1,14 +1,34 @@
 version: '2'
 services:
+  redis_master:
+    image: redis:3.0.7-alpine
+    ports:
+      - "127.0.0.1:6379:6379"
+
+  redis_slave:
+    image: redis:3.0.7-alpine
+
+  sentinel:
+    build: ./redis/.
+    image: redis-sentinel
+    environment:
+      - MASTER_NAME=master01
+      - QUORUM=1
+      - MASTER=redis_master
+      - SLAVES=redis_slave
+      - ANNOUNCE_IP=127.0.0.1
+      - ANNOUNCE_PORT=26379
+    depends_on:
+      - redis_master
+    ports:
+      - "127.0.0.1:26379:26379"
+
   db:
-    image: "mysql"
+    build: ./mysql/.
+    image: mysql
     environment:
       - MYSQL_ROOT_PASSWORD=mysql
       - MYSQL_USER=mysql
       - MYSQL_PASSWORD=mysql
     ports:
       - "127.0.0.1:3307:3306"
-  redis:
-    image: "redis"
-    ports:
-      - "127.0.0.1:6379:6379"
