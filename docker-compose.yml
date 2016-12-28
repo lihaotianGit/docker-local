@@ -5,24 +5,19 @@ services:
     ports:
       - "127.0.0.1:6379:6379"
 
-  redis_slave:
-    image: redis:3.0.7-alpine
-
   sentinel:
     build: ./redis/.
     image: redis-sentinel
     environment:
       - MASTER_NAME=master01
       - QUORUM=1
-      - MASTER=redis_master
-      - SLAVES=redis_slave
+      - MASTER=127.0.0.1:6379
       - ANNOUNCE_IP=127.0.0.1
       - ANNOUNCE_PORT=26379
     depends_on:
       - redis_master
     ports:
       - "127.0.0.1:26379:26379"
-
   db:
     build: ./mysql/.
     image: mysql
