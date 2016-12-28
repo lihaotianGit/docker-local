@@ -18,6 +18,7 @@ services:
       - redis_master
     ports:
       - "127.0.0.1:26379:26379"
+      
   db:
     build: ./mysql/.
     image: mysql
