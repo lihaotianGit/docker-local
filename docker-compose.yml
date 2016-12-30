@@ -6,7 +6,7 @@ services:
     ports:
       - "127.0.0.1:6379:6379"
 
-  sentinel:
+  redis_sentinel:
     build: ./redis/redis-sentinel/.
     image: redis-sentinel
     environment:
@@ -20,7 +20,7 @@ services:
     ports:
       - "127.0.0.1:26379:26379"
 
-  db:
+  mysql:
     build: ./mysql/.
     image: mysql
     environment:
@@ -29,3 +29,9 @@ services:
       - MYSQL_PASSWORD=mysql
     ports:
       - "127.0.0.1:3307:3306"
+
+  rocketmq:
+    build: ./rocketmq/.
+    image: rocketmq
+    ports:
+      - "127.0.0.1:9876:9876"
