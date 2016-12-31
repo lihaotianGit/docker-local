@@ -35,3 +35,10 @@ services:
     image: rocketmq
     ports:
       - "127.0.0.1:9876:9876"
+
+  nginx:
+    build: ./nginx/.
+    image: nginx
+    environment:
+      - NGINX_HOST=localhost
+      - NGINX_PORT=8088

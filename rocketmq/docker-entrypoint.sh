@@ -17,7 +17,18 @@
 # startup mqnamesrv and mqbroker
 # sh /opt/alibaba-rocketmq/bin/play.sh
 
-sh /alibaba-rocketmq/bin/play.sh;
+nohup sh /alibaba-rocketmq/bin/mqnamesrv > nameserv.log 2>&1 &
+nohup sh /alibaba-rocketmq/bin/mqbroker -n 127.0.0.1:9876 -c /alibaba-rocketmq/bin/conf.properties > broker.log 2>&1 &
+
+echo 'nameserv log:'
+sleep 1;
+cat nameserv.log
+
+echo 'broker log:'
+sleep 1;
+cat broker.log
+
+# sh /alibaba-rocketmq/bin/play.sh;
 while sleep 10;
 do echo RocketMQ, GO ROCK;
 done
