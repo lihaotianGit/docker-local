@@ -33,12 +33,12 @@ services:
   rocketmq:
     build: ./rocketmq/.
     image: rocketmq
+    network_mode: "none"
     ports:
       - "127.0.0.1:9876:9876"
 
   nginx:
     build: ./nginx/.
     image: nginx
-    environment:
-      - NGINX_HOST=localhost
-      - NGINX_PORT=8088
+    ports:
+      - "127.0.0.1:8088:8088"
